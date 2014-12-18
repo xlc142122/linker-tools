@@ -31,10 +31,10 @@ public class SendReceiveMain {
 	 * receiveTHreadNum
 	 * */
 	public static void main(String[] args) {
-		if (args == null || args.length == 0) {
-			System.out.println(HELPMSG);
-			return;
-		}
+//		if (args == null || args.length == 0) {
+//			System.out.println(HELPMSG);
+//			return;
+//		}
 
 		if (args[0].equals("-help")) {
 			System.out.println(HELPMSG);
@@ -85,9 +85,10 @@ public class SendReceiveMain {
 			}
 			
 		}
-		
-		if(sendThreadNum > 0 && Integer.parseInt(argsMap.get("-sc")) > 0){
-			int sendNumPerThread = Integer.parseInt(argsMap.get("-sc")) / sendThreadNum;
+
+		int sendNumPerThread = argsMap.containsKey("-sc") ? Integer.parseInt(argsMap.get("-sc")) : 1;
+
+		if(sendThreadNum > 0 && sendNumPerThread > 0){
 			for (int i = 0; i < sendThreadNum; i++) {
 				try {
 					Thread pushThread = new Thread(new SendThread(argsMap.get("-sh"), argsMap.get("-sp"), argsMap.get("-sm"),
